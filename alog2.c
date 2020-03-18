@@ -280,9 +280,9 @@ void main()
     int choice;
     printf("1.Encryption \n2.Decryption\nPress 1 or 2\n");
     scanf(" %d", &choice);
-    if (choice != 1 || choice != 2)
+    if (choice >= 3 || choice <= 0)
     {
-        printf("Wrong choice, Please rerun the program and try again");
+        printf("Wrong choice, Please rerun the program and try again, %d", choice);
         exit(0);
     }
 
