@@ -217,8 +217,10 @@ void decrypt(char ch1, char ch2, char map[5][5], char *result)
     else if (lch1i == lch2i)
     {
         //same row
-        ec1 = map[lch1i][(lch1j - 1) % 5];
-        ec2 = map[lch2i][(lch2j - 1) % 5];
+
+        ec1 = map[lch1i][(lch1j == 0) ? 4 : (lch1j - 1) % 5];
+
+        ec2 = map[lch2i][(lch2j == 0) ? 4 : (lch1j - 1) % 5];
     }
     else
     {
@@ -227,6 +229,8 @@ void decrypt(char ch1, char ch2, char map[5][5], char *result)
         ec2 = map[lch2i][lch1j];
     }
     printf("After decryption: %c %c \n", ec1, ec2);
+    printf(" %d %d \n", lch1i, lch1j);
+    printf(" %d %d \n", lch2i, lch2j);
     result[0] = ec1;
     result[1] = ec2;
 }
@@ -280,9 +284,9 @@ void main()
     int choice;
     printf("1.Encryption \n2.Decryption\nPress 1 or 2\n");
     scanf(" %d", &choice);
-    if (choice != 1 || choice != 2)
+    if (choice >= 3 || choice <= 0)
     {
-        printf("Wrong choice, Please rerun the program and try again");
+        printf("Wrong choice, Please rerun the program and try again, %d", choice);
         exit(0);
     }
 
