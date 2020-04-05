@@ -375,14 +375,14 @@ void main(int n, char *x[])
             }
         }
 
-        printf(" The message in encrypted format is:  %s ", encryptedMessage);
+        printf("%s ", encryptedMessage);
     }
     else if (choice == 2)
     {
         //Decryption
         //printf("decrypting...");
         pairInputandDecrypt(message, map, sizeOfMessage, decryptedMessage);
-        printf(" The message in decrypted format is:  %s ", decryptedMessage);
+        printf("%s ", decryptedMessage);
     }
     else
     {
