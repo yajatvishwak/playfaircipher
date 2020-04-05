@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
 #include <ctype.h>
 
 void deleteduplicate(char *key, char c)
@@ -119,7 +118,7 @@ void pushKeyToMap(char map[5][5], char *mapgen, int sizeOfMapgen)
         }
     }
     removeAll(mapgen, '.');
-    printf("after removing j : \t %s \n", mapgen);
+    //printf("after removing j : \t %s \n", mapgen);
     for (i = 0; i < 5; i++)
     {
         for (j = 0; j < 5; j++)
@@ -226,7 +225,7 @@ void decrypt(char ch1, char ch2, char map[5][5], char *result)
         ec1 = map[lch1i][lch2j];
         ec2 = map[lch2i][lch1j];
     }
-    printf("After decryption: %c %c \n", ec1, ec2);
+    //printf("After decryption: %c %c \n", ec1, ec2);
     result[0] = ec1;
     result[1] = ec2;
 }
@@ -236,7 +235,7 @@ void pairInputandEncrypt(char *message, char map[5][5], int size, char *et)
     int i;
     char encryptedText[2];
 
-    printf("Without space: \t %s \n", message);
+    //printf("Without space: \t %s \n", message);
     if (size % 2 != 0)
     {
         message[size] = 'z';
@@ -244,9 +243,9 @@ void pairInputandEncrypt(char *message, char map[5][5], int size, char *et)
 
     for (i = 0; i < size; i += 2)
     {
-        printf("Before encrpytion : %c %c  \n", message[i], message[i + 1]);
+        //printf("Before encrpytion : %c %c  \n", message[i], message[i + 1]);
         encrypt(message[i], message[i + 1], map, encryptedText);
-        printf("After encryption: %c %c \n", encryptedText[0], encryptedText[1]);
+        //printf("After encryption: %c %c \n", encryptedText[0], encryptedText[1]);
         et[i] = encryptedText[0];
         et[i + 1] = encryptedText[1];
     }
@@ -260,7 +259,7 @@ void pairInputandDecrypt(char *message, char map[5][5], int size, char *dt)
 
     for (i = 0; i < size; i += 2)
     {
-        printf("Before encrpytion : %c %c  \n", message[i], message[i + 1]);
+        //printf("Before encrpytion : %c %c  \n", message[i], message[i + 1]);
         decrypt(message[i], message[i + 1], map, decryptedText);
         dt[i] = decryptedText[0];
         dt[i + 1] = decryptedText[1];
@@ -268,7 +267,15 @@ void pairInputandDecrypt(char *message, char map[5][5], int size, char *dt)
     //et to main fucntion for final answer
 }
 
-void main()
+int str2int(char *s)
+{
+    int i, n;
+    for (n = 0, i = 0; s[i] != '\0'; i++) /* extracting characters */
+        n = n * 10 + (s[i] - '0');        /* converting and concatenating to number */
+    return n;
+}
+
+void main(int n, char *x[])
 {
     int sizeOfKey, sizeOfMessage, i, j, k = 0;
     char key[26];
@@ -278,26 +285,30 @@ void main()
     char map[5][5];
     char mapgen[] = "abcdefghiklmnopqrstuvwxyz";
     int choice;
-    printf("1.Encryption \n2.Decryption\nPress 1 or 2\n");
-    scanf(" %d", &choice);
+    //printf("1.Encryption \n2.Decryption\nPress 1 or 2\n");
+    //scanf(" %d", &choice);
+    choice = str2int(x[1]);
+
     if (choice <= 0 || choice >= 3)
     {
         printf("Wrong choice, Please rerun the program and try again");
         exit(0);
     }
 
-    printf("Enter message: \n");
-    scanf(" %[^\n]%*c", message);
+    //printf("Enter message: \n");
+    //scanf(" %[^\n]%*c", message);
+    strcpy(message, x[2]);
+    //printf("Enter Key String: \n");
+    //scanf(" %s", key);
+    strcpy(key, x[3]);
 
-    printf("Enter Key String: \n");
-    scanf(" %s", key);
     prepareInput(key);
     sizeOfKey = strlen(key);
-    printf("Your entered key is : %s \n Its size is : %d \n", key, sizeOfKey);
+    //printf("Your entered key is : %s \n Its size is : %d \n", key, sizeOfKey);
 
     removeAll(message, ' ');
     sizeOfMessage = strlen(message);
-    printf("Your entered message is : %s \n Its size is : %d \n", message, sizeOfMessage);
+    //printf("Your entered message is : %s \n Its size is : %d \n", message, sizeOfMessage);
 
     // initializing values of map
     for (i = 0; i < 5; i++)
@@ -318,33 +329,33 @@ void main()
             k += 1;
         }
     }
-    printf("\n");
-    printf("Generated Map after adding the key to the map, now filling rest of the values .....");
-    printf("\n");
-    printArray(map);
+    // printf("\n");
+    // printf("Generated Map after adding the key to the map, now filling rest of the values .....");
+    // printf("\n");
+    //printArray(map);
 
     //preparing the mapgen, to fill in other values in the map
 
     //1. marking all duplicates
     markMapGen(key, mapgen, sizeOfKey);
-    printf(" marking all duplicates: \t %s \n", mapgen);
+    //printf(" marking all duplicates: \t %s \n", mapgen);
     //2. removing all marked
     removeAll(mapgen, '.');
-    printf("removing all marked : \t %s \n", mapgen);
+    //printf("removing all marked : \t %s \n", mapgen);
     // mapgen prepared to push in map
 
     //pushing mapgen to map
     pushKeyToMap(map, mapgen, strlen(mapgen));
-    printf("Generated Map after pushing mapgen to the map");
-    printf("\n");
-    printArray(map);
+    //printf("Generated Map after pushing mapgen to the map");
+    //printf("\n");
+    //printArray(map);
 
     if (choice == 1)
     {
         //Encryption
 
         //Pairing the input
-        printf("Message to be encrypted: %s \n ", message);
+        //printf("Message to be encrypted: %s \n ", message);
         //replacing the j in the message with i
         for (i = 0; i <= strlen(message); i++)
         {
@@ -353,7 +364,7 @@ void main()
                 message[i] = 'i';
             }
         }
-        printf("Message to be encrypted after replacing j with i: %s \n ", message);
+        //printf("Message to be encrypted after replacing j with i: %s \n ", message);
         pairInputandEncrypt(message, map, sizeOfMessage, encryptedMessage);
         //processing output - !!!PENDING
         for (i = 0; i < sizeOfMessage - 1; i++)
@@ -364,14 +375,14 @@ void main()
             }
         }
 
-        printf("\n The message in encrypted format is: \t %s \n", encryptedMessage);
+        printf(" The message in encrypted format is:  %s ", encryptedMessage);
     }
     else if (choice == 2)
     {
         //Decryption
-        printf("decrypting...");
+        //printf("decrypting...");
         pairInputandDecrypt(message, map, sizeOfMessage, decryptedMessage);
-        printf("\n The message in decrypted format is: \t %s \n", decryptedMessage);
+        printf(" The message in decrypted format is:  %s ", decryptedMessage);
     }
     else
     {
