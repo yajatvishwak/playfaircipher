@@ -1,4 +1,4 @@
-$("form.lol").submit(function (e) {
+$("form.form1").submit(function (e) {
   e.preventDefault();
   var message = $("#message").val().toLowerCase().trim();
   var key = $("#key").val().toLowerCase().trim();

@@ -18,7 +18,7 @@ app.post("/", (req, res) => {
     req.body.message +
     '" "' +
     req.body.key +
-    '"';
+    '"'; // * ./alog 1 "message" "key"
   exec(code, (err, stdout, stderr) => {
     if (err) {
       return err;
